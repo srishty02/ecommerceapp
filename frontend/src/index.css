@@ -1,32 +1,264 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap');
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-a.active hr{
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Customizing scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #ff7e5f, #feb47b);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #222;
+}
+
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: linear-gradient(135deg, 
+    #ff69b4,  /* Hot Pink */
+    #ff1493,  /* Deep Pink */
+    #1e90ff,  /* Dodger Blue */
+    #4169e1,  /* Royal Blue */
+    #8a2be2,  /* Blue Violet */
+    #9400d3,  /* Dark Violet */
+    #ff4500,  /* Orange Red */
+    #ff8c00,  /* Dark Orange */
+    #00ff7f,  /* Spring Green */
+    #00ffff,  /* Cyan */
+    #ff00ff,  /* Magenta */
+    #4b0082   /* Indigo */
+  );
+  background-size: 500% 500%;
+  animation: gradientMove 12s infinite alternate ease-in-out;
+  color: white;
+  
+}
+
+/* 🌠 Smooth Gradient Motion */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 🌟 Floating Dots (Stars) */
+.floating-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: black;
+  border-radius: 50%;
+  animation: floatDot 4s infinite alternate ease-in-out;
+}
+
+@keyframes floatDot {
+  0% { transform: translateY(0px); opacity: 0.8; }
+  50% { transform: translateY(-10px); opacity: 1; }
+  100% { transform: translateY(0px); opacity: 0.8; }
+}
+
+/* ✨ Floating Animation (for elements like buttons, images, etc.) */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* 🚀 Shooting Star Effect */
+@keyframes shootingStar {
+  0% { opacity: 0; transform: translateX(0) translateY(0); }
+  100% { opacity: 1; transform: translateX(100vw) translateY(-100vh); }
+}
+
+.shooting-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  animation: shootingStar 2s linear infinite;
+}
+/* Active Link Underline */
+a.active hr {
   display: block;
+  transition: width 0.3s ease-in-out;
 }
 
-*{
-  font-family: Outfit;
+a:hover hr {
+  width: 100%;
 }
 
+/* Prata Font */
 .prata-regular {
-  font-family : "Prata", serif;
+  font-family: "Prata", serif;
   font-weight: 400;
   font-style: normal;
 }
 
+/* Fade-in Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-in-out forwards;
+}
 
-  ::-webkit-scrollbar{
-    display: none;
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-@media (max-width:640px){
-  a.active{
+/* Button Hover Animation */
+.button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.3s ease-in-out;
+}
+
+.button:hover::after {
+  left: 0;
+}
+
+/* Glow Effect on Hover */
+.glow:hover {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+/* Slide-in Effect for Images */
+.slide-in {
+  transform: translateX(-100%);
+  opacity: 0;
+  animation: slideIn 1s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Scaling Up on Hover */
+.scale-up {
+  transition: transform 0.3s ease-in-out;
+}
+
+.scale-up:hover {
+  transform: scale(1.1);
+}
+
+/* Mobile Responsive Active Link */
+@media (max-width: 640px) {
+  a.active {
     background-color: black;
     color: white;
   }
+}
+
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Tailwind CSS with plugin */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+
+/* Modal wrapper */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  z-index: 1000;
+}
+
+/* Title */
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Modal body */
+.modal p {
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+/* Action buttons */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+}
+
+.btn-confirm {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-ok {
+  background-color: #007bff;
+  color: white;
 }

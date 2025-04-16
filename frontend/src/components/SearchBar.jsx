@@ -8,46 +8,50 @@ const SearchBar = () => {
   const [visible, setVisible] = useState(false);
   const location = useLocation();
 
-  // Debugging logs
   useEffect(() => {
-    console.log("Current path:", location.pathname);
     setVisible(location.pathname.includes("collection"));
   }, [location.pathname]);
 
-  console.log("showSearch:", showSearch, "visible:", visible);
-
-  if (!showSearch || !visible) return null; // Only render if both conditions are met
+  if (!showSearch || !visible) return null;
 
   return (
-    <div className="border-t border-b bg-gray-50 text-center p-3">
-      <div className="inline-flex items-center justify-between border border-gray-400 px-4 py-2 my-3 mx-3 rounded-full w-3/4 sm:w-1/2">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 transition-opacity duration-300">
+      <div className="relative bg-white bg-opacity-80 backdrop-blur-md shadow-lg rounded-full flex items-center w-[90%] sm:w-[50%] p-3 border border-gray-300 hover:border-blue-400 transition-all">
+        
+        {/* Search Icon */}
+        {assets?.search_icon && (
+          <img 
+            className="w-6 h-6 mr-2 cursor-pointer transition-transform duration-300 hover:scale-110" 
+            src={assets.search_icon} 
+            alt="Search"
+          />
+        )}
+
+        {/* Search Input */}
         <input
           value={search || ""}
-          onChange={(e) => {
-            setSearch(e.target.value);
-            console.log("Search updated:", e.target.value);
-          }}
-          className="flex-1 outline-none bg-inherit text-sm"
+          onChange={(e) => setSearch(e.target.value)}
+          className="flex-1 outline-none bg-transparent text-gray-700 text-sm px-2 placeholder-gray-400"
           type="text"
-          placeholder="Search"
+          placeholder="Search for services..."
+          autoFocus
         />
-        {assets?.search_icon && (
-          <img className="w-5 cursor-pointer" src={assets.search_icon} alt="Search Icon" />
+        
+
+        {/* Close Button */}
+        {assets?.cross_icon && (
+          <img
+            onClick={() => setShowSearch(false)}
+            className="absolute right-3 w-5 h-5 cursor-pointer transition-transform duration-300 hover:rotate-90"
+            src={assets.cross_icon}
+            alt="Close"
+          />
         )}
       </div>
-      {assets?.cross_icon && (
-        <img
-          onClick={() => {
-            setShowSearch(false);
-            console.log("Search bar closed");
-          }}
-          className="inline w-4 cursor-pointer ml-2"
-          src={assets.cross_icon}
-          alt="Close Search"
-        />
-      )}
     </div>
   );
 };
 
 export default SearchBar;
+
+

@@ -12,10 +12,7 @@ const ShopContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({});
 
     const addToCart = async (itemId, size) => {
-        if (!size) {
-            toast.error("Select Product Size");
-            return;
-        }
+        
 
         let cartData = { ...cartItems };
 

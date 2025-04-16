@@ -12,9 +12,9 @@ const Product = () => {
   const [size, setSize] = useState('');
   const [activeTab, setActiveTab] = useState('description');
   const [reviews, setReviews] = useState([
-    { user: 'User1', comment: 'Great product! Fast shipping.' },
-    { user: 'User2', comment: 'Excellent quality, would buy again.' },
-    { user: 'User3', comment: 'Customer support was very helpful.' }
+    { user: 'User1', comment: 'Great service! Totally satisfied.' },
+    { user: 'User2', comment: 'Excellent sense of duty, would book the service again.' },
+    
   ]);
   const [newReview, setNewReview] = useState('');
   useEffect(() => {
@@ -65,36 +65,22 @@ const Product = () => {
             <p className='pl-2'>(122)</p>
           </div>
 
-          <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
+          
           <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
 
-          {/* Select Size */}
-          <div className='flex flex-col gap-4 my-8'>
-            <p>Select Size</p>
-            <div className='flex gap-2'>
-              {productData.sizes?.map((item, index) => (
-                <button 
-                  onClick={() => setSize(item)} 
-                  className={`border py-2 px-4 bg-gray-100 ${item === size ? 'border-orange-500' : ''}`} 
-                  key={index}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-          </div>
+         
 
           <button 
             onClick={() => addToCart(productData._id, size)} 
             className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700'
           >
-            ADD TO CART
+            Book the service
           </button>
           <hr className='mt-8 sm:w-4/5' />
 
           <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
             <p>✔ 100% Best Services.</p>
-            <p>✔ Cash on delivery is available on this product.</p>
+            <p>✔ Verified Professional.</p>
             
           </div>
         </div>
@@ -119,8 +105,14 @@ const Product = () => {
         </div>
         {activeTab === 'description' ? (
           <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>
-            <p>An e-commerce website is an online platform that facilitates the buying and selling of products.</p>
-            <p>E-commerce websites typically display products or services along with detailed descriptions, images, and prices.</p>
+            <p>Compassionate Care, Right at Your Doorstep!</p>
+            <p>
+
+Our trained and verified caretakers provide personalized assistance for the elderly, patients, or anyone in need of day-to-day support. From administering medications to helping with mobility, hygiene, and companionship — we ensure comfort, safety, and dignity at every step.
+
+Whether it's short-term recovery or long-term care, trust our caretakers to treat your loved ones like family.
+
+</p>
           </div>
         ) : (
           <div className='flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500'>

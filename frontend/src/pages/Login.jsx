@@ -17,102 +17,200 @@ const Login = ({ backendUrl }) => {
     const requestOtp = async () => {
         try {
             await axios.post(`${backendUrl}/send-otp`, { phone });
-            toast.success('OTP sent to your phone!');
+            toast.success('OTP sent!');
             setOtpSent(true);
-        } catch (error) {
-            toast.error('Error sending OTP');
+        } catch {
+            toast.error('Failed to send OTP');
         }
     };
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
-        navigate('/home'); // Redirect to home page immediately upon clicking Sign In
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        navigate('/Register');
     };
 
     return (
-        <form onSubmit={onSubmitHandler} className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800'>
-            <div className='inline-flex items-center gap-2 mb-2 mt-10'>
-                <p className='prata-regular text-3xl'>{currentState}</p>
-                <hr className='border-none h-[1.5px] w-8 bg-gray-800' />
-            </div>
-            
-            <button type='button' onClick={() => setUsePhone(!usePhone)} className='text-blue-600 underline'>
-                {usePhone ? 'Use Email & Password' : 'Use Phone OTP'}
-            </button>
-
-            {usePhone ? (
-                <>
-                    <input
-                        type='text'
-                        className='w-full px-3 py-2 border border-gray-800'
-                        placeholder='Phone Number'
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
+        <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-700 via-indigo-600 to-pink-500 px-4 py-12">
+            {/* Animated Background Circles */}
+            <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none overflow-hidden">
+                {[...Array(30)].map((_, index) => (
+                    <div
+                        key={index}
+                        className="absolute text-black bg-black rounded-full opacity-10 animate-bubble"
+                        style={{
+                            width: `${10 + Math.random() * 20}px`,
+                            height: `${10 + Math.random() * 20}px`,
+                            left: `${Math.random() * 100}%`,
+                            animationDelay: `${Math.random() * 5}s`,
+                            animationDuration: `${4 + Math.random() * 6}s`,
+                            bottom: `-${Math.random() * 100}px`,
+                        }}
                     />
-                    {!otpSent ? (
-                        <button type='button' onClick={requestOtp} className='bg-black text-white font-light px-8 py-2'>
-                            Send OTP
-                        </button>
-                    ) : (
-                        <>
-                            <input
-                                type='text'
-                                className='w-full px-3 py-2 border border-gray-800'
-                                placeholder='Enter OTP'
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                                required
-                            />
-                            <button type='submit' className='bg-green-500 text-white font-light px-8 py-2'>
-                                Verify OTP
-                            </button>
-                        </>
-                    )}
-                </>
-            ) : (
-                <>
-                    {currentState === 'Sign Up' && (
+                ))}
+            </div>
+
+            {/* Form */}
+            <form
+                onSubmit={onSubmitHandler}
+                className="relative z-10 w-full max-w-md text-black bg-white p-8 rounded-2xl shadow-2xl animate-float"
+            >
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
+                    {currentState}
+                </h2>
+
+                <button
+                    type="button"
+                    onClick={() => setUsePhone(!usePhone)}
+                    className="block w-full text-sm text-indigo-600 hover:underline text-center mb-6"
+                >
+                    {usePhone ? 'Use Email & Password' : 'Use Phone OTP'}
+                </button>
+
+                {usePhone ? (
+                    <>
                         <input
-                            type='text'
-                            className='w-full px-3 py-2 border border-gray-800'
-                            placeholder='Name'
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            type="text"
+                            placeholder="Phone Number"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            className="input-style"
                             required
                         />
-                    )}
-                    <input
-                        type='email'
-                        className='w-full px-3 py-2 border border-gray-800'
-                        placeholder='Email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                    <input
-                        type='password'
-                        className='w-full px-3 py-2 border border-gray-800'
-                        placeholder='Password'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <button type='submit' className='bg-black text-white font-light px-8 py-2 mt-4'>
-                        {currentState === 'Login' ? 'Sign In' : 'Sign Up'}
-                    </button>
-                </>
-            )}
-
-            <div className='w-full flex justify-between text-sm mt-[-8px]'>
-                <p className='cursor-pointer'>Forgot your password</p>
-                {currentState === 'Login' ? (
-                    <p onClick={() => setCurrentState('Sign Up')} className='cursor-pointer'>Create account</p>
+                        {!otpSent ? (
+                            <button
+                                type="button"
+                                onClick={requestOtp}
+                                className="btn-primary mt-4"
+                            >
+                                Send OTP
+                            </button>
+                        ) : (
+                            <>
+                                <input
+                                    type="text"
+                                    placeholder="Enter OTP"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value)}
+                                    className="input-style"
+                                    required
+                                />
+                                <button type="submit" className="btn-primary mt-4">
+                                    Verify OTP
+                                </button>
+                            </>
+                        )}
+                    </>
                 ) : (
-                    <p onClick={() => setCurrentState('Login')} className='cursor-pointer'>Login Here</p>
+                    <>
+                        {currentState === 'Sign Up' && (
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="input-style"
+                                required
+                            />
+                        )}
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="input-style"
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="input-style"
+                            required
+                        />
+                        <button type="submit" className="btn-primary mt-4">
+                            {currentState === 'Login' ? 'Sign In' : 'Sign Up'}
+                        </button>
+                    </>
                 )}
-            </div>
-        </form>
+
+                <div className="flex justify-between text-sm text-gray-600 mt-6">
+                    <p className="cursor-pointer hover:text-gray-800">Forgot password?</p>
+                    {currentState === 'Login' ? (
+                        <p
+                            onClick={() => setCurrentState('Sign Up')}
+                            className="cursor-pointer hover:text-gray-800"
+                        >
+                            Create account
+                        </p>
+                    ) : (
+                        <p
+                            onClick={() => setCurrentState('Login')}
+                            className="cursor-pointer hover:text-gray-800"
+                        >
+                            Login here
+                        </p>
+                    )}
+                </div>
+
+                <style>{`
+                    .input-style {
+                        width: 100%;
+                        padding: 12px 16px;
+                        margin-top: 12px;
+                        border: 1px solid #d1d5db;
+                        border-radius: 0.5rem;
+                        outline: none;
+                        transition: border 0.3s ease;
+                    }
+                    .input-style:focus {
+                        border-color: #7c3aed;
+                    }
+                    .btn-primary {
+                        width: 100%;
+                        padding: 12px 16px;
+                        background: linear-gradient(to right, #7c3aed, #9333ea);
+                        color: white;
+                        font-weight: 600;
+                        border: none;
+                        border-radius: 0.5rem;
+                        cursor: pointer;
+                        transition: transform 0.2s ease;
+                    }
+                    .btn-primary:hover {
+                        transform: scale(1.03);
+                        background: linear-gradient(to right, #6d28d9, #a855f7);
+                    }
+
+                    @keyframes float {
+                        0% { transform: translateY(0); }
+                        50% { transform: translateY(-8px); }
+                        100% { transform: translateY(0); }
+                    }
+
+                    .animate-float {
+                        animation: float 5s ease-in-out infinite;
+                    }
+
+                    @keyframes bubble {
+                        0% {
+                            transform: translateY(0) scale(1);
+                            opacity: 0.4;
+                        }
+                        100% {
+                            transform: translateY(-100vh) scale(1.4);
+                            opacity: 0;
+                        }
+                    }
+
+                    .animate-bubble {
+                        animation-name: bubble;
+                        animation-timing-function: ease-in;
+                        animation-iteration-count: infinite;
+                    }
+                `}</style>
+            </form>
+        </div>
     );
 };
 

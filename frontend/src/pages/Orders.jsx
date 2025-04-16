@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import Title from '../components/Title'; // Ensure Title is correctly imported
+import ArrowButton from '../components/ArrowButton';
+import { Link } from 'react-router-dom';
+
 
 const Orders = () => {
   const { products, currency } = useContext(ShopContext);
@@ -43,7 +46,15 @@ const Orders = () => {
             <div className='md:w-1/2 flex justify-between'>
               <div className='flex items-center gap-2'>
                 <p className='min-w-2 h-2 rounded-full bg-green-500 '></p>
-                <p className='text-sm md:text-base'>Ready to ship</p>
+                
+                 <div className="text-sm md:text-base">
+                          <Link
+                            to="/place-order"
+                            className="bg-blue-100 text-blue-600 hover:underline text-sm font-medium px-4 py-2 rounded-md shadow-sm"
+                          >
+                            Checkout →
+                          </Link>
+                        </div>
 
               </div>
               </div>
