@@ -42,4 +42,28 @@ Welcome to **The Doorz**, a complete MERN stack-based e-commerce website offerin
 ---
 
 ## 📁 Folder Structure
+ecommerce-website/
+├── README.md
+├── .gitignore
+├── package.json / requirements.txt
+├── backend/
+│   ├── app.js / manage.py / app.py
+│   ├── routes/
+│   ├── controllers/
+│   ├── models/
+│   └── config/
+├── frontend/
+│   ├── index.html
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── script.js
+│   └── images/
+├── public/ (optional for static files)
+├── database/
+│   └── schema.sql or migrations/
+├── tests/
+│   └── test_app.js / test_app.py
+└── utils/
+    └── helpers.js / helpers.py
 
