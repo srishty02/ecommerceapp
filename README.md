@@ -1,4 +1,4 @@
-# 🛒 The Doorz – E-commerce Web Application
+# 🛒 At The Doorz – E-commerce Web Application
 
 Welcome to **The Doorz**, a complete MERN stack-based e-commerce website offering a seamless and modern shopping experience. This project includes both client and server implementations to simulate an end-to-end retail platform.
 
